@@ -6,11 +6,13 @@ FROM bfosberry/gamekick_base
 MAINTAINER bfosberry
 
 # install prerequisites
-RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0 lib32asound2
-
+RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0
 # set up env
+RUN mkdir -p /opt/steam
+
 ENV USERNAME steam
 RUN adduser --gecos "" $USERNAME
+RUN chown steam.steam /opt/steam
 USER steam
 ENV HOME /home/$USERNAME
 ENV STEAMDIR /opt/steam
