@@ -9,10 +9,12 @@ MAINTAINER bfosberry
 RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0
 # set up env
 RUN mkdir -p /opt/steam
+RUN mkdir -p /opt/server
 
 ENV USERNAME steam
 RUN adduser --gecos "" $USERNAME
 RUN chown steam.steam /opt/steam
+RUN chown steam.steam /opt/server
 USER steam
 ENV HOME /home/$USERNAME
 ENV STEAMDIR /opt/steam
@@ -25,5 +27,3 @@ RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -
 RUN $STEAMDIR/steamcmd.sh +quit
 RUN mkdir -p $HOME/.steam/sdk32
 RUN ln -s $STEAMDIR/linux32/steamclient.so /$HOME/.steam/sdk32/steamclient.so
-
-
