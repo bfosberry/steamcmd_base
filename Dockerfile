@@ -12,7 +12,8 @@ RUN mkdir -p /opt/steam
 RUN mkdir -p /opt/server
 
 ENV USERNAME steam
-RUN adduser --gecos "" $USERNAME
+RUN adduser --disabled-password --gecos "" $USERNAME
+RUN usermod -a -G sudo $USERNAME
 RUN chown steam.steam /opt/steam
 RUN chown steam.steam /opt/server
 USER steam
