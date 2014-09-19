@@ -13,7 +13,7 @@
 NAME="gameserver"
 USER="steam"
 SCREENREF="gameserver"
-BINARYPATH="/opt/server/"
+BINARYPATH="/opt/server/scripts"
 BINARYNAME="start.sh"
 PIDFILE="server.pid"
 

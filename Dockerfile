@@ -10,12 +10,12 @@ RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0 screen
 # set up env
 RUN mkdir -p /opt/steam
 RUN mkdir -p /opt/server
+RUN mkdir -p /opt/data
 
 ENV USERNAME steam
 RUN adduser --disabled-password --gecos "" $USERNAME
 RUN usermod -a -G sudo $USERNAME
-RUN chown steam.steam /opt/steam
-RUN chown steam.steam /opt/server
+RUN chown -R steam.steam /opt/*
 USER steam
 ENV HOME /home/$USERNAME
 ENV STEAMDIR /opt/steam
