@@ -35,13 +35,11 @@ running() {
 start() {
     if ! running; then
         echo -n "Starting the $NAME server... "
-        sudo -u $USER screen -dmS $SCREENREF $BINARYPATH/$BINARYNAME
-        
-        sleep 5
-        ps ax | grep "$SCREENREF" | grep -v "grep" | grep -i "screen" |  awk '{print $1 }' | head -n  1 > $PIDFILE
+        nohup $BINARYPATH/$BINARYNAME > /opt/server/server.log 2>&1 & echo $! > $PIDFILE
+        sleep 3
         if [ -s $PIDFILE ]; then
             NEXT_WAIT_TIME=0
-            until netstat -l | grep ":$PORT " || [ $NEXT_WAIT_TIME -eq 5 ]; do
+            until netstat -l | grep ":$PORT " || [ $NEXT_WAIT_TIME -eq 10 ]; do
               sleep $(( NEXT_WAIT_TIME++ ))
             done
             netstat -l | grep ":$PORT " > /dev/null

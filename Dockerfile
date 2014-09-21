@@ -6,7 +6,7 @@ FROM bfosberry/gamekick_base
 MAINTAINER bfosberry
 
 # install prerequisites
-RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0 screen
+RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0
 # set up env
 RUN mkdir -p /opt/steam
 RUN mkdir -p /opt/server
