@@ -39,13 +39,14 @@ start() {
         sleep 3
         if [ -s $PIDFILE ]; then
             NEXT_WAIT_TIME=0
-            until netstat -l | grep ":$PORT " || [ $NEXT_WAIT_TIME -eq 10 ]; do
+            until netstat -l | grep ":$PORT " || [ $NEXT_WAIT_TIME -eq 20 ]; do
               sleep $(( NEXT_WAIT_TIME++ ))
             done
             netstat -l | grep ":$PORT " > /dev/null
             if [ $? -ne 0 ]; then
               echo "Failed, port closed"
-              cat $PIDFILE | xargs kill > /dev/null
+              PID=`cat $PIDFILE`
+              kill -TERM -$(ps x -o "%p %r " | grep $PID | awk '{ print $2 }')
               rm $PIDFILE
             else
               echo "Done"
@@ -62,7 +63,8 @@ start() {
 stop() {
     if running; then
         echo -n "Stopping the $NAME server... "
-        kill `cat $PIDFILE`
+        PID=`cat $PIDFILE`
+        kill -TERM -$(ps x -o "%p %r " | grep $PID | awk '{ print $2 }')
         while running; do
             sleep 1
         done
