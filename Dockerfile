@@ -37,3 +37,4 @@ ADD ./scripts/init.d.sh /etc/init.d/game_server
 
 ONBUILD ADD ./scripts /opt/server/scripts
 ONBUILD RUN $STEAMDIR/steamcmd.sh +runscript /opt/server/scripts/update_script
+ONBUILD RUN cp $SERVERDIR/bin/*.so $HOME/.steam/sdk32/; true
