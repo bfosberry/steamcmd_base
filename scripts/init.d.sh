@@ -14,9 +14,9 @@ NAME="gameserver"
 USER="steam"
 SCREENREF="gameserver"
 SERVERPATH="/opt/server"
-BINARYPATH="$SERVER_PATH/scripts"
+BINARYPATH="$SERVERPATH/scripts"
 BINARYNAME="start.sh"
-PIDFILE="$SERVER_PATH/server.pid"
+PIDFILE="$SERVERPATH/server.pid"
 
 cd "$BINARYPATH"
 
@@ -36,7 +36,7 @@ running() {
 start() {
     if ! running; then
         echo -n "Starting the $NAME server... "
-        nohup $BINARYPATH/$BINARYNAME > /opt/server/server.log 2>&1 & echo $! > $PIDFILE
+        nohup "$BINARYPATH/$BINARYNAME" >> $SERVERPATH/server.log 2>&1 & echo $! > $PIDFILE
         sleep 3
         if [ -s $PIDFILE ]; then
             NEXT_WAIT_TIME=0
