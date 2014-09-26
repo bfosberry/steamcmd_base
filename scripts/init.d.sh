@@ -36,7 +36,7 @@ running() {
 start() {
     if ! running; then
         echo -n "Starting the $NAME server... "
-        nohup "$BINARYPATH/$BINARYNAME" >> $SERVERPATH/server.log 2>&1 & echo $! > $PIDFILE
+        nohup "$BINARYPATH/$BINARYNAME" >> $SERVERPATH/server.log & echo $! > $PIDFILE
         sleep 3
         if [ -s $PIDFILE ]; then
             NEXT_WAIT_TIME=0
