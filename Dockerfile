@@ -17,7 +17,7 @@ RUN mkdir -p /opt/data
 ENV USERNAME steam
 RUN adduser --disabled-password --gecos "" $USERNAME
 RUN usermod -a -G sudo $USERNAME
-RUN chown -R steam.steam /opt/*
+RUN chown -R steam.steam /opt/
 USER steam
 ENV HOME /home/$USERNAME
 ENV STEAMDIR /opt/steam
