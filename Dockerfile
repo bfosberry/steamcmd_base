@@ -5,21 +5,16 @@
 FROM bfosberry/gamekick_base
 MAINTAINER bfosberry
 
+USER root
 # install prerequisites
 RUN apt-get -y install lib32gcc1 lib32z1 lib32ncurses5 lib32bz2-1.0 lib32stdc++6 gdb
 
-
+USER appuser
 # set up env
 RUN mkdir -p /opt/steam
 RUN mkdir -p /opt/server
 RUN mkdir -p /opt/data
 
-ENV USERNAME steam
-RUN adduser --disabled-password --gecos "" $USERNAME
-RUN usermod -a -G sudo $USERNAME
-RUN chown -R steam.steam /opt/
-USER steam
-ENV HOME /home/$USERNAME
 ENV STEAMDIR /opt/steam
 ENV SERVERDIR /opt/server
 RUN mkdir -p $STEAMDIR
