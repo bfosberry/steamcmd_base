@@ -24,7 +24,7 @@ ENV STEAMDIR /opt/steam
 ENV SERVERDIR /opt/server
 RUN mkdir -p $STEAMDIR
 
-ENV PATH /opt/scripts/:/opt/server/scripts/:$PATH
+ENV PATH /opt/server/scripts/:$PATH
 
 # download steamcmd
 RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $STEAMDIR -xvz
@@ -33,8 +33,6 @@ RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -
 RUN $STEAMDIR/steamcmd.sh +quit
 RUN mkdir -p $HOME/.steam/sdk32
 RUN ln -s $STEAMDIR/linux32/steamclient.so /$HOME/.steam/sdk32/steamclient.so
-
-ADD ./scripts/init.d.sh /etc/init.d/game_server
 
 ONBUILD ADD ./scripts /opt/server/scripts
 ONBUILD RUN $STEAMDIR/steamcmd.sh +runscript /opt/server/scripts/update_script
