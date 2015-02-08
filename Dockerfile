@@ -28,7 +28,3 @@ RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -
 RUN $STEAMDIR/steamcmd.sh +quit
 RUN mkdir -p $HOME/.steam/sdk32
 RUN ln -s $STEAMDIR/linux32/steamclient.so /$HOME/.steam/sdk32/steamclient.so
-
-ONBUILD ADD ./scripts /opt/server/scripts
-ONBUILD RUN $STEAMDIR/steamcmd.sh +runscript /opt/server/scripts/update_script
-ONBUILD RUN cp $SERVERDIR/bin/*.so $HOME/.steam/sdk32/; true
